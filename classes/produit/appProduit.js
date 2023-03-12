@@ -1,29 +1,31 @@
 import { Produit } from "../produit/produit.js";
-// import {readFileSync, writeFileSync} from "fs"
+ import {readFileSync, writeFileSync} from "fs"
 
 export class AppProduit{
     constructor(){
         this.produits= []
-        this.count = 10
-        this.fichier = "data.json"
+        this.fichier = "dataProduit.json"
     }
 
-    // read(){
-    //     const contenu = readFileSync(this.fichier).toString()
-    //     this.produits = JSON.parse(contenu)
-    //     this.count = (this.produits[this.produits.length-1] != undefined) ? this.produits[this.produits.length-1].id : 0
-    // }
+    read(){
+        const contenu = readFileSync(this.fichier).toString()
+        this.produits = JSON.parse(contenu)
+        this.count = (this.produits[this.produits.length-1] != undefined) ? this.produits[this.produits.length-1].id : 0
+    }
 
-    // write(){
-    //     writeFileSync(this.file, JSON.stringify(this.produits))
-    // }
+    write(){
+        writeFileSync(this.fichier, JSON.stringify(this.produits))
+    }
 
     //ajouter produit 
 
-    ajouterProduit(id,titre,prix){
-        const produit = new Produit(++this.count,titre,prix)
-        this.produits.push(produit)
-        // this.write()
+    ajouterProduit(titre,prix, quantite ){
+        // console.log(titre, prix)
+        this.read()
+        const prod = new Produit(++this.count,titre,prix, quantite)
+        console.log(prod)
+        this.produits.push(prod)
+        this.write()
     }
 
     //recuperer un produit
@@ -33,6 +35,7 @@ export class AppProduit{
 
     //recuperer tous les produits
     getAllProduits(){
+        this.read()
         return this.produits
     }
 

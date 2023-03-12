@@ -1,11 +1,11 @@
 import { Client } from "./client.js"
-// import {readFileSync, writeFileSync} from "fs"
+import {readFileSync, writeFileSync} from "fs"
 
 export class AppClient {
     constructor(){
         this.clients = []
         this.count = 0
-        this.fichier = "data.json"
+        this.fichier = "dataClient.json"
     }
 
     read(){
@@ -19,8 +19,10 @@ export class AppClient {
     }
 
     //ajouter un client
-    ajouterClient( id,  nom, prenom, telephone){
-        let clientTest = new Client(++this.count, nom,prenom,telephone)
+
+    ajouterClient(  nom, prenom, telephone){
+        this.read()
+        const clientTest = new Client(++this.count, nom,prenom,telephone)
         this.clients.push(clientTest)
         this.write()
     }
